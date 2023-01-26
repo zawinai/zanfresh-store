@@ -1,7 +1,7 @@
 import { features } from "process";
 import React from "react";
 
-const Promotion = () => {
+const Combo = () => {
   const features = [
     {
       name: "Big bag",
@@ -73,4 +73,4 @@ const Promotion = () => {
   );
 };
 
-export default Promotion;
+export default Combo;

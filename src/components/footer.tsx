@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className='bg-gradient-to-r from-gray-100 via-[#bce1ff] to-gray-100'>
+    <footer className='bg-gradient-to-r from-sky-200/80 via-sky-200/30 to-sky-100/80 md:from-transparent md:via-sky-200/80 md:to-transparent'>
       <div className='max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8'>
         <div className='grid grid-cols-1 gap-8 lg:grid-cols-3'>
           <div>
@@ -76,16 +76,13 @@ const Footer = () => {
               <nav className='flex flex-col mt-4 space-y-2 text-sm text-gray-500'>
                 <span className='hover:opacity-75'> About </span>
                 <span className='hover:opacity-75'> Meet the Team </span>
-                <span className='hover:opacity-75'> History </span>
                 <span className='hover:opacity-75'> Careers </span>
               </nav>
             </div>
             <div>
               <p className='font-medium'>Services</p>
               <nav className='flex flex-col mt-4 space-y-2 text-sm text-gray-500'>
-                <span className='hover:opacity-75'> 1on1 Coaching </span>
                 <span className='hover:opacity-75'> Company Review </span>
-                <span className='hover:opacity-75'> Accounts Review </span>
                 <span className='hover:opacity-75'> HR Consulting </span>
                 <span className='hover:opacity-75'> SEO Optimisation </span>
               </nav>
@@ -95,7 +92,6 @@ const Footer = () => {
               <nav className='flex flex-col mt-4 space-y-2 text-sm text-gray-500'>
                 <span className='hover:opacity-75'> Contact </span>
                 <span className='hover:opacity-75'> FAQs </span>
-                <span className='hover:opacity-75'> Live Chat </span>
               </nav>
             </div>
             <div>
@@ -112,7 +108,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <p className='mt-8 text-xs text-gray-800'>© 2022 Comany Name</p>
+        <p className='mt-8 text-xs text-gray-800'>© 2023 ZANfresh</p>
       </div>
     </footer>
   );

@@ -1,22 +1,60 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import { HiOutlineCheck, HiPlusSm, HiOutlineMinusSm } from "react-icons/hi";
+import { ToastContainer, toast } from "react-toastify";
+import { useCart } from "@/context/cartContext";
 
 const Card = ({
   id,
-  name,
   img,
+  name,
   price,
-  handleAddToCart,
 }: {
   id: number;
   name: string;
   img: string;
   price: number;
-  handleAddToCart: (prop : string) => void;
 }) => {
   const [open, setOpen] = useState(false);
+
+  const { addToCart, increaseQuantity, reduceQuantity } = useCart();
+
+  const handleAddToCart = ({
+    id,
+    name,
+    img,
+    price,
+  }: {
+    id: number;
+    name: string;
+    img: string;
+    price: number;
+  }) => {
+    toast(`${name} was 🛒 Added to the cart`, {
+      position: "top-center",
+      autoClose: 10000,
+      hideProgressBar: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
+    const newItem = {
+      id: id,
+      img: img,
+      name: name,
+      price: price,
+      quantity: 1,
+    };
+
+    addToCart(newItem);
+  };
+
+  const handleReduce = (id: number) => {
+    reduceQuantity(id);
+  };
 
   return (
     <li
@@ -50,13 +88,16 @@ const Card = ({
           }  absolute bottom-0 right-0 h-full bg-green w-[30%] `}
         >
           <div className='flex flex-col items-center justify-between w-full h-full py-1 '>
-            <button onClick={() => handleAddToCart(name)} className="">
+            <button
+              onClick={() => handleAddToCart({ id, name, img, price })}
+              className=''
+            >
               <HiOutlineCheck className='text-green w-[20px] h-auto bg-white rounded-full' />
             </button>
-            <button>
+            <button onClick={() => handleReduce(id)}>
               <HiOutlineMinusSm className='text-green w-[20px] h-auto bg-white rounded-full' />
             </button>
-            <button>
+            <button onClick={() => increaseQuantity(id)}>
               <HiPlusSm className='text-green w-[20px] h-auto bg-white rounded-full' />
             </button>
           </div>

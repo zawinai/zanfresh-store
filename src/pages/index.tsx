@@ -4,10 +4,17 @@ import Head from "next/head";
 import Hero from "@/components/hero";
 import Header from "@/components/header";
 import CategoryMenu from "@/components/categoryMenu";
-import Promotion from "@/components/promotion";
+import Combo from "@/components/combo";
 import Testimonials from "@/components/testimonials";
 import Footer from "@/components/footer";
+import { HydrationProvider } from "react-hydration-provider";
+import { useCart } from "@/context/cartContext";
+import Cart from "./cart";
 export default function Home() {
+  const { cart } = useCart();
+
+  console.log("index", cart.length);
+
   const { data: session } = useSession();
 
   const { push, asPath } = useRouter();
@@ -24,14 +31,17 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='max-w-[1200px] mx-auto'>
-        <Header />
-        <Hero />
-        <Promotion />
-        <CategoryMenu />
-        <Testimonials />
-        <Footer />
-      </main>
+
+      <HydrationProvider>
+        <main className='max-w-[1200px] mx-auto'>
+          <Header />
+          <Hero />
+          <Combo />
+          <CategoryMenu />
+          <Testimonials />
+          <Footer />
+        </main>
+      </HydrationProvider>
     </>
   );
 }

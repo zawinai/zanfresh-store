@@ -7,12 +7,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import CartIcon from "@/components/cartIcon";
-import CartModal from "@/components/modal";
+import CartModal from "@/components/cart";
+
 const Collection = () => {
   const items = [
     {
       id: 1,
-      name: "Orange Areon at North",
+      name: "Water spinach",
       img: "/items/item1.png",
       price: 120,
       qty: 12,
@@ -20,7 +21,7 @@ const Collection = () => {
     },
     {
       id: 2,
-      name: "Apple",
+      name: "Bok Choy",
       img: "/items/item2.png",
       price: 120,
       qty: 12,
@@ -28,7 +29,7 @@ const Collection = () => {
     },
     {
       id: 3,
-      name: "Pineapple",
+      name: "Corainder",
       img: "/items/item3.png",
       price: 150,
       qty: 10,
@@ -36,7 +37,7 @@ const Collection = () => {
     },
     {
       id: 4,
-      name: "Chocolate",
+      name: "Dragon Fruit",
       img: "/items/item4.png",
       price: 320,
       qty: 12,
@@ -44,7 +45,7 @@ const Collection = () => {
     },
     {
       id: 5,
-      name: "Coconut",
+      name: "Pineapple",
       img: "/items/item5.png",
       price: 820,
       qty: 32,
@@ -52,15 +53,15 @@ const Collection = () => {
     },
     {
       id: 6,
-      name: "Jelly",
-      img: "/items/item6.png",
+      name: "Garlic",
+      img: "/items/garlic.png",
       price: 320,
       qty: 92,
       promo: false,
     },
     {
       id: 7,
-      name: "Kitkat",
+      name: "Long bean",
       img: "/items/item1.png",
       price: 220,
       qty: 82,
@@ -76,7 +77,7 @@ const Collection = () => {
     },
     {
       id: 9,
-      name: "Honey Pie",
+      name: "Broccoli",
       img: "/items/item9.png",
       price: 120,
       qty: 190,
@@ -84,8 +85,8 @@ const Collection = () => {
     },
     {
       id: 10,
-      name: "Water Waffel",
-      img: "/items/item10.png",
+      name: "Chilli",
+      img: "/items/Chili.png",
       price: 220,
       qty: 62,
       promo: false,
@@ -120,19 +121,6 @@ const Collection = () => {
       img: "/see/v.png",
     },
   ];
-
-  const handleAddToCart = (name: string) => {
-    toast(`${name} was 🛒 Added to the cart`, {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
 
   return (
     <>
@@ -239,13 +227,7 @@ const Collection = () => {
             <ul className='grid grid-cols-item-card place-items-center gap-y-10'>
               {items.map(({ name, price, id, img }) => (
                 <div key={id}>
-                  <Card
-                    id={id}
-                    name={name}
-                    price={price}
-                    img={img}
-                    handleAddToCart={handleAddToCart}
-                  />
+                  <Card id={id} name={name} price={price} img={img} />
                 </div>
               ))}
             </ul>

@@ -11,6 +11,7 @@ module.exports = {
         signIn: "url('/signIn.jpg')",
         veges: "url('/veges.jpg')",
         backDrop: "url('/veges.jpg')",
+        testimonialBg: "url('/testimonial-bg.png')",
       },
       fontFamily: {
         fresh: "fresh",
@@ -34,8 +35,30 @@ module.exports = {
         color: "color 2s ease infinite",
         fadeIn: "fadeIn 1s ease-in forwards",
         bounce: "bounce 2s ease infinite",
+        float: "float 12s linear infinite",
       },
       keyframes: {
+        float: {
+          "0% 100%": {
+            "border-radius": "77% 47% 61% 49%",
+          },
+
+          "20%": {
+            "border-radius": "89% 26% 70% 30%",
+          },
+
+          "40%": {
+            "border-radius": "56% 93% 56% 94%",
+          },
+
+          "60%": {
+            "border-radius": "68% 60% 94% 96%",
+          },
+
+          "80%": {
+            "border-radius": "34% 74% 59% 82%",
+          },
+        },
         color: {
           "0%, 100%": {
             "background-size": "200% 200%",
@@ -68,5 +91,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
+  variants: {
+    scrollbar: ["rounded"],
+  },
 };

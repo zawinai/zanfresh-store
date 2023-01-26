@@ -52,6 +52,13 @@ const CategoryMenu = () => {
       link: "bevrage",
       ring: "p-3 rounded-l-3xl rounded-r-3xl outline-none focus:border-none focus:ring-4 focus:ring-rose-400 ring-offset-2",
     },
+    {
+      id: 8,
+      name: "Snacks",
+      img: "/categories/snacks.png",
+      link: "snacks",
+      ring: "p-3 rounded-l-3xl rounded-r-3xl outline-none focus:border-none focus:ring-4 focus:ring-rose-400 ring-offset-2",
+    },
   ];
 
   return (
@@ -62,9 +69,9 @@ const CategoryMenu = () => {
           <Link
             href={`categories/${link}`}
             key={id}
-            className={`w-[150px] h-auto flex flex-col items-center hover:scale-95 border rounded-md shadow-sm bg- z-30 bg-transparent md:bg-white ${""} ${ring}` }
+            className={`w-[150px] h-auto flex flex-col items-center hover:scale-95 border rounded-md shadow-sm bg- z-30 bg-transparent md:bg-white ${""} ${ring}`}
           >
-            <div className="flex flex-col items-center">
+            <div className='flex flex-col items-center'>
               <Image src={img} width={150} height={150} alt='menu-card' />
               <span className='text-center '>{name}</span>
             </div>

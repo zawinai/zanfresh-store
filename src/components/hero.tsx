@@ -79,13 +79,13 @@ const Hero = () => {
             <div className='text-black  z-30 text-3xl sm:text-4xl md:text-6xl font-bold drop-shadow-md tracking-wider'>
               We Provide
             </div>
-            {/* <TypeAnimation
+            <TypeAnimation
               sequence={["Fresh", 1000, "Healthy", 1000, "Best", 1500]}
               wrapper='div'
               cursor={false}
               repeat={Infinity}
               className=' text-4xl sm:text-5xl md:text-6xl text-center text-orange font-black text-shadow-xl drop-shadow-xl tracking-wider'
-            /> */}
+            />
             <div className='text-green text-4xl sm:text-5xl md:text-6xl font-fresh drop-shadow-md font-bold tracking-wider'>
               Groceries
             </div>

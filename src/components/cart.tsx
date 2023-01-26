@@ -1,8 +1,9 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { HiChevronDown, HiPlus, HiMinus, HiTrash } from "react-icons/hi";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import { Disclosure } from "@headlessui/react";
+import { useCart } from "@/context/cartContext";
 
 export default function CartModal({
   open,
@@ -12,6 +13,8 @@ export default function CartModal({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const cancelButtonRef = useRef(null);
+
+  const { cart, increaseQuantity, reduceQuantity, removeFromCart } = useCart();
 
   const items = [
     {
@@ -180,90 +183,108 @@ export default function CartModal({
                   <div className='pb-5'>
                     <MdOutlineShoppingBasket className='mx-auto w-[60px] h-auto text-green' />
                     <p className='text-center w-full text-sm font-light tracking-wider'>
-                      {items.length} items in the basket
+                      {cart.length} items in the basket
                     </p>
                   </div>
                   <ul className='flex flex-col items-center gap-5'>
-                    {items.map(({ id, name, img, price }) => (
-                      <Disclosure>
-                        {({ open }) => (
-                          <li
-                            key={id}
-                            className={`flex flex-col items-center justify-between w-full h-auto p-2 border-b-2 ${
-                              open ? "bg-white" : ""
-                            } `}
-                          >
-                            <div className='flex flex-row items-start justify-between gap-3 '>
-                              <div className='flex flex-row items-start gap-3'>
-                                <img
-                                  src={img}
-                                  alt='image'
-                                  className='w-[80px] h-auto'
-                                />
-                                <div className='flex flex-col items-start justify-between w-full'>
-                                  <span className='text-md font-bold text-gray-700 w-[50vw] md:w-[300px] text-start'>
-                                    {name}
-                                  </span>
-                                  <div className='flex flex-col items-start w-full'>
-                                    <span className='text-md font-medium text-gray-400'>
-                                      Qty :
-                                      <span className='text-black font-bold'>
-                                        {" "}
-                                        1
-                                      </span>
+                    {cart.length < 1 ? (
+                      <h1 className='text-xl md:text-2xl min-h-[300px]'>
+                        An Empty basket {":("}
+                      </h1>
+                    ) : (
+                      cart.map(({ id, name, img, price, quantity }) => (
+                        <Disclosure key={id}>
+                          {({ open }) => (
+                            <li
+                              className={`flex flex-col items-center justify-between w-full h-auto p-2 border-b-2 ${
+                                open ? "bg-white" : ""
+                              } `}
+                            >
+                              <div className='flex flex-row items-start justify-between gap-3 '>
+                                <div className='flex flex-row items-start gap-3'>
+                                  <img
+                                    src={img}
+                                    alt='image'
+                                    className='w-[80px] h-auto'
+                                  />
+                                  <div className='flex flex-col items-start justify-between w-full'>
+                                    <span className='text-md font-bold text-gray-700 w-[50vw] md:w-[300px] text-start'>
+                                      {name}
                                     </span>
-                                    <span className='text-md font-medium text-gray-400'>
-                                      Price :
-                                      <span className='text-black font-bold'>
-                                        {" "}
-                                        100 mmk
+                                    <div className='flex flex-col items-start w-full'>
+                                      <span className='text-md font-medium text-gray-400'>
+                                        Qty :
+                                        <span className='text-black font-bold'>
+                                          {" "}
+                                          {quantity}
+                                        </span>
                                       </span>
-                                    </span>
+                                      <span className='text-md font-medium text-gray-400'>
+                                        Price :
+                                        <span className='text-black font-bold'>
+                                          {" "}
+                                          {price} mmk
+                                        </span>
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
+                                <Disclosure.Button className='self-end'>
+                                  <HiChevronDown
+                                    className={`${
+                                      open ? "rotate-180" : ""
+                                    } w-[20px] h-auto`}
+                                  />
+                                </Disclosure.Button>
                               </div>
-                              <Disclosure.Button className='self-end'>
-                                <HiChevronDown
-                                  className={`${
-                                    open ? "rotate-180" : ""
-                                  } w-[20px] h-auto`}
-                                />
-                              </Disclosure.Button>
-                            </div>
-                            <Disclosure.Panel className=' flex flex-row items-center justify-around pt-4 py-2 px-4 pb-2 text-sm max-w-[90%] w-full '>
-                              <button type='button'>
-                                <HiTrash className='w-[28px] h-[28px] bg-red-600 rounded-full p-1 text-white' />
-                              </button>
-                              <button type='button'>
-                                <HiMinus className='w-[28px] h-[28px] bg-orange rounded-full p-1 text-white' />
-                              </button>
-                              <button type='button'>
-                                <HiPlus className='w-[28px] h-[28px] bg-green rounded-full p-1 text-white' />
-                              </button>
-                            </Disclosure.Panel>
-                          </li>
-                        )}
-                      </Disclosure>
-                    ))}
+                              <Disclosure.Panel className=' flex flex-row items-center justify-around pt-4 py-2 px-4 pb-2 text-sm max-w-[90%] w-full '>
+                                <button
+                                  type='button'
+                                  onClick={() => removeFromCart(id)}
+                                >
+                                  <HiTrash className='w-[28px] h-[28px] bg-red-600 rounded-full p-1 text-white' />
+                                </button>
+                                <button
+                                  type='button'
+                                  onClick={() => reduceQuantity(id)}
+                                >
+                                  <HiMinus className='w-[28px] h-[28px] bg-orange rounded-full p-1 text-white' />
+                                </button>
+                                <button
+                                  type='button'
+                                  onClick={() => increaseQuantity(id)}
+                                >
+                                  <HiPlus className='w-[28px] h-[28px] bg-green rounded-full p-1 text-white' />
+                                </button>
+                              </Disclosure.Panel>
+                            </li>
+                          )}
+                        </Disclosure>
+                      ))
+                    )}
                   </ul>
                 </div>
-                <div className='py-2 px-4 w-full'>
+                <div
+                  className={`${
+                    cart.length < 1 ? "hidden" : ""
+                  } py-2 px-4 w-full`}
+                >
                   <div className='flex flex-row justify-between w-full'>
-                    <div/>
+                    <div />
                     <h3 className='text-end text-sm font-medium'>MMK</h3>
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
-                    <h3 className="font-light tracking-wide">Subtotal</h3>
+                    <h3 className='font-light tracking-wide'>Subtotal</h3>
                     <span>12000</span>
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
-                    <h3 className="font-light tracking-wide">Discount</h3>
+                    <h3 className='font-light tracking-wide'>Discount</h3>
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
-                    <h3 className="font-light tracking-wide">Tax</h3>
+                    <h3 className='font-light tracking-wide'>Tax</h3>
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
-                    <h3 className="font-light tracking-wide">Delivery fee</h3>
+                    <h3 className='font-light tracking-wide'>Delivery fee</h3>
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
                     <h3 className='text-xl font-extrabold tracking-wider'>
