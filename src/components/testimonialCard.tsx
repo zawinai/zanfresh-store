@@ -6,7 +6,7 @@ interface IProps {
 }
 const TestimonialCard = ({ title, stars, body, user }: IProps) => {
   return (
-    <div className='shadow-sm w-[320px] h-auto bg-indigo-200/90 backdrop-blur-lg rounded-xl'>
+    <div className='shadow-sm w-[320px] h-auto bg-sky-200/90 backdrop-blur-lg rounded-xl'>
       <blockquote className=' p-5 '>
         <div>
           <div className='flex gap-0.5 text-green-500'>

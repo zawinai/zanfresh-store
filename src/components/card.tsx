@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import { HiOutlineCheck, HiPlusSm, HiOutlineMinusSm } from "react-icons/hi";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useCart } from "@/context/cartContext";
 
 const Card = ({

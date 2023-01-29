@@ -1,6 +1,3 @@
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-
 import TestimonialCard from "./testimonialCard";
 
 const Testimonials = () => {

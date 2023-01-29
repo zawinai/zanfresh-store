@@ -1,3 +1,4 @@
+import Router from "next/router";
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { HiChevronDown, HiPlus, HiMinus, HiTrash } from "react-icons/hi";
@@ -16,136 +17,7 @@ export default function CartModal({
 
   const { cart, increaseQuantity, reduceQuantity, removeFromCart } = useCart();
 
-  const items = [
-    {
-      id: 1,
-      name: "Orange Areon at North",
-      img: "/items/item1.png",
-      price: 120,
-      qty: 12,
-      promo: false,
-    },
-    {
-      id: 2,
-      name: "Apple",
-      img: "/items/item2.png",
-      price: 120,
-      qty: 12,
-      promo: false,
-    },
-    {
-      id: 3,
-      name: "Pineapple",
-      img: "/items/item3.png",
-      price: 150,
-      qty: 10,
-      promo: false,
-    },
-    {
-      id: 4,
-      name: "Chocolate",
-      img: "/items/item4.png",
-      price: 320,
-      qty: 12,
-      promo: false,
-    },
-    {
-      id: 5,
-      name: "Coconut",
-      img: "/items/item5.png",
-      price: 820,
-      qty: 32,
-      promo: false,
-    },
-    {
-      id: 6,
-      name: "Jelly",
-      img: "/items/item6.png",
-      price: 320,
-      qty: 92,
-      promo: false,
-    },
-    {
-      id: 7,
-      name: "Kitkat",
-      img: "/items/item1.png",
-      price: 220,
-      qty: 82,
-      promo: false,
-    },
-    {
-      id: 8,
-      name: "Banana",
-      img: "/items/item8.png",
-      price: 420,
-      qty: 42,
-      promo: false,
-    },
-    {
-      id: 9,
-      name: "Honey Pie",
-      img: "/items/item9.png",
-      price: 120,
-      qty: 190,
-      promo: false,
-    },
-    {
-      id: 10,
-      name: "Water Waffel",
-      img: "/items/item10.png",
-      price: 220,
-      qty: 62,
-      promo: false,
-    },
-    {
-      id: 100,
-      name: "Water Waffel",
-      img: "/items/item10.png",
-      price: 220,
-      qty: 62,
-      promo: false,
-    },
-    {
-      id: 11,
-      name: "Plant",
-      img: "/items/item3.png",
-      price: 220,
-      qty: 62,
-      promo: false,
-    },
-    {
-      id: 12,
-      name: "Water Waffel",
-      img: "/items/item7.png",
-      price: 220,
-      qty: 62,
-      promo: false,
-    },
-    {
-      id: 13,
-      name: "Water Waffel",
-      img: "/items/item6.png",
-      price: 220,
-      qty: 62,
-      promo: false,
-    },
-    {
-      id: 14,
-      name: "Water Waffel",
-      img: "/items/item5.png",
-      price: 220,
-      qty: 62,
-      promo: false,
-    },
-    {
-      id: 15,
-      name: "Water Waffel",
-      img: "/items/item1.png",
-      price: 220,
-      qty: 62,
-      promo: false,
-    },
-  ];
+  const { push } = Router;
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -296,7 +168,10 @@ export default function CartModal({
                   <button
                     type='button'
                     className='inline-flex w-full justify-center rounded-md border border-transparent bg-sky-400 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm'
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                      push("/checkout");
+                    }}
                   >
                     Check Out
                   </button>

@@ -10,7 +10,7 @@ module.exports = {
       backgroundImage: {
         signIn: "url('/signIn.jpg')",
         veges: "url('/veges.jpg')",
-        backDrop: "url('/veges.jpg')",
+        backDrop: "url('/back.png')",
         testimonialBg: "url('/testimonial-bg.png')",
       },
       fontFamily: {

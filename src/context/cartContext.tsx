@@ -47,6 +47,10 @@ export const CartContextProvider = ({
   };
 
   const increaseQuantity = (id: number) => {
+    const findItem = cart.find((item) => item.id === id);
+
+    if (!findItem) return;
+
     setCart(
       cart.map((item) =>
         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
@@ -82,7 +86,22 @@ export const CartContextProvider = ({
     const filterItem = cart.filter((item) => item.id !== id);
 
     if (filterItem) {
+      const itemName = cart.find((item) => item.id === id);
+
+      toast(`${itemName?.name} is removed!`, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+
       return setCart([...filterItem]);
+    } else {
+      return;
     }
   };
 
