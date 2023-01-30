@@ -1,12 +1,26 @@
 import { useState, useEffect } from "react";
+// import { onAuthStateChanged } from "firebase/auth";
+// import { auth } from "firebase.config";
 
-export const useFirebase = async () => {
-  const [user, setUser] = useState<null | string>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+// export async function useFirebase() {
+//   const [user, setUser] = useState<any>(null);
+//   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    return () => console.log("User is set");
-  }, []);
+//   useEffect(() => {
+//     const unsub = onAuthStateChanged(auth, (data) => {
+//       console.log("Here important", data);
+//       if (!auth) {
+//         setLoading(false);
+//         setUser(null);
+//       } else {
+//         setUser(data);
+//       }
 
-  return { user, loading };
-};
+//       setLoading(false);
+//     });
+
+//     return () => unsub();
+//   }, []);
+
+//   return { user, loading };
+// }

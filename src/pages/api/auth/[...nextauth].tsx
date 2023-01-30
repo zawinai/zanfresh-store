@@ -1,20 +1,16 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-import { initializeApp, getApps, getApp } from "firebase/app";
-
 import { FirestoreAdapter } from "@next-auth/firebase-adapter";
 
 const firebaseConfig = {
-  apiKey: process.env.API,
+  apiKey: "AIzaSyDiVv1eJDoAaAU7VMG-wthoL-RWTDZPZLA",
   authDomain: process.env.ADM,
   projectId: process.env.PID,
   storageBucket: process.env.BUC,
   messagingSenderId: process.env.MSGID,
   appId: process.env.APP,
 };
-
-initializeApp(firebaseConfig);
 
 export default NextAuth({
   providers: [
@@ -27,4 +23,22 @@ export default NextAuth({
     signIn: "/auth/signin",
   },
   adapter: FirestoreAdapter(firebaseConfig),
+  session: {
+    strategy: "jwt",
+    maxAge: 90 * 24 * 60 * 60,
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user = token;
+      }
+      return session;
+    },
+  },
 });

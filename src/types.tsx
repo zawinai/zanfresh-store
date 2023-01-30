@@ -3,7 +3,7 @@ export interface ShopContextProviderProps {
   children: React.ReactNode;
 }
 
-export type initialValues = {
+export type initialValuesTypes = {
   user: null | string;
   loading: boolean;
 };

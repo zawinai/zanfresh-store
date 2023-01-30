@@ -1,3 +1,4 @@
+"use client";
 import { useCart } from "@/context/cartContext";
 import { HiTruck, HiCreditCard, HiCash, HiBadgeCheck } from "react-icons/hi";
 import UseCheckoutForm from "@/hooks/useCheckoutForm";
@@ -7,11 +8,25 @@ import Delivery from "@/components/checkoutforms/delivery";
 import Payment from "@/components/checkoutforms/payment";
 import Complete from "@/components/checkoutforms/complete";
 import Image from "next/image";
+import { db } from "firebase.config";
+import {
+  doc,
+  setDoc,
+  serverTimestamp,
+  collection,
+  addDoc,
+} from "firebase/firestore";
+import { useSession } from "next-auth/react";
+import { useCheckout } from "@/context/checkoutContext";
 
 const Checkout = () => {
+  const { data: session } = useSession();
+
   const hydrate = useComponentHydrated();
 
   const { cart } = useCart();
+
+  const { complete, checkoutInfo } = useCheckout();
 
   const DeliveryIcon = () => {
     return <HiTruck className='w-[40px] h-auto mx-auto' />;
@@ -34,6 +49,21 @@ const Checkout = () => {
   const ELEMENTS = [<Delivery />, <Payment />, <Complete />];
 
   const { currentIndex, step, next, back, goto } = UseCheckoutForm(ELEMENTS);
+
+  const handleCheck = async () => {
+    try {
+      await setDoc(
+        doc(db, "order", (session?.user?.name as string) || "user"),
+        {
+          ...checkoutInfo,
+          cart: cart,
+          orderAt: serverTimestamp(),
+        }
+      );
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -99,12 +129,6 @@ const Checkout = () => {
                 >
                   <div className='relative w-full '>
                     <div className='z-20 w-full text-center'>{ele.ele}</div>
-                    {/* Progress Bar */}
-                    {/* <div
-                      className={` ${currentIndex === index ? "" : "hidden"} ${
-                        currentIndex === ELEMENTS.length - 1 ? "hidden" : ""
-                      } w-full h-[3px] bg-gray-400 absolute top-5 left-0 `}
-                    ></div> */}
                   </div>
                 </button>
               ))}
@@ -124,11 +148,14 @@ const Checkout = () => {
                   Back
                 </button>
                 <button
+                  disabled={complete}
                   type='button'
                   className={` ${
                     currentIndex === ELEMENTS.length - 1 ? "hidden" : ""
                   } p-3 bg-orange self-end text-white font-medium tracking-wide rounded-lg text-sm md:text-lg mt-10`}
-                  onClick={() => next()}
+                  onClick={() => {
+                    currentIndex == 0 ? next() : handleCheck();
+                  }}
                 >
                   Complete
                 </button>

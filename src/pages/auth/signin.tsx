@@ -2,17 +2,22 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession, signIn, getProviders } from "next-auth/react";
 import HashLoader from "react-spinners/HashLoader";
-import { FaFacebookF } from "react-icons/fa";
+import { ImFacebook } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
-import { BsCart4 } from "react-icons/bs";
+import { MdOutlineShoppingBasket } from "react-icons/md";
 
 const Signin = () => {
   const { data: session, status } = useSession();
 
+  console.log(status);
+
+  console.log(session);
+
   const { push } = useRouter();
 
   const handleSignIn = (provider: string) => {
+    console.log(provider);
     signIn(provider);
   };
 
@@ -27,7 +32,9 @@ const Signin = () => {
 
     content = (
       <h1 className='text-4xl p-10 animate-fadeIn bg-gradient-to-r from-green to-sky-700 bg-clip-text text-transparent'>
-        "You're already logged in!"
+        Welcome to the store
+        <br />
+        Happy shopping!
       </h1>
     );
   } else {
@@ -40,7 +47,7 @@ const Signin = () => {
               Sign In With..
             </h1>
             <button className='bg-blue-700 border-2 border-slate-200 p-3 rounded-lg flex flex-row items-center justify-center gap-10 w-full hover:scale-95 outline-none focus:border-none focus:ring-4 focus:ring-blue-700 ring-offset-2'>
-              <FaFacebookF className=' text-blue-200 w-[30px] md:w-[35px] h-auto' />
+              <ImFacebook className=' text-blue-200 w-[30px] md:w-[35px] h-auto' />
               <h1 className='text-white text-md sm:text-lg md:textxl tracking-wide font-bol'>
                 Facebook
               </h1>
@@ -62,7 +69,7 @@ const Signin = () => {
               Continue Shopping..
             </h1>
             <span>
-              <BsCart4 className=' md:text-black ' />
+              <MdOutlineShoppingBasket className=' md:text-black ' />
             </span>
           </div>
         </Link>

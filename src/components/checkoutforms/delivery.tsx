@@ -1,6 +1,8 @@
-import { Listbox, Transition } from "@headlessui/react";
+import { Listbox } from "@headlessui/react";
 import { BsChevronDown } from "react-icons/Bs";
 import { useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useCheckout } from "@/context/checkoutContext";
 
 const Delivery = () => {
   const cities = [
@@ -28,10 +30,34 @@ const Delivery = () => {
 
   const [city, setCity] = useState<typeof cities[0]>(cities[0]);
 
+  const [phone, setPhone] = useState<number | undefined>(undefined);
+
+  const [address, setAddress] = useState<string>("");
+
+  const [remark, setRemark] = useState<string>("");
+
+  const [checkout, setCheckout] = useLocalStorage("checkout", {});
+
+  const { complete, setComplete, setCheckoutInfo } = useCheckout();
+
+  const handleCheckout = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const checkoutInfo = {
+      city: city.name,
+      phone: phone,
+      address: address,
+      remark: remark,
+    };
+
+    setCheckoutInfo(checkoutInfo);
+    setComplete(false);
+  };
+
   return (
     <div className='py-2 px-3 min-h-[600px] md:min-h-fit'>
       <form action=''>
-        <div className='row-start-1  grid grid-rows-3 md:grid-rows-4 grid-cols-6 gap-x-4 gap-y-10'>
+        <div className='row-start-1  grid grid-rows-4 grid-cols-6 gap-x-4 gap-y-10'>
           <div className='col-start-1 col-span-full grid grid-cols-4 w-full gap-x-2 gap-y-10'>
             <div className='col-span-full relative'>
               <Listbox value={city} onChange={setCity}>
@@ -41,7 +67,7 @@ const Delivery = () => {
                     <BsChevronDown />
                   </span>
                 </Listbox.Button>
-                <Listbox.Options className='absolute right-0 mt-1 max-w-[500px] mx-auto max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-20 flex flex-col items-center'>
+                <Listbox.Options className='absolute right-0 mt-1 max-w-[500px] mx-auto max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-20 flex flex-col items-center'>
                   {cities.map((c, index) => (
                     <Listbox.Option
                       value={c}
@@ -83,6 +109,8 @@ const Delivery = () => {
                 id='phone-number'
                 name='phone-number'
                 type='number'
+                value={phone}
+                onChange={(e) => setPhone(parseInt(e.target.value))}
                 className='text-white bg-green px-2 rounded-md h-full w-full  drop-shadow-md focus:outline-none focus:border-none focus:ring-2 focus:ring-orange focus:ring-offset-2 col-span-2'
               />
             </div>
@@ -99,6 +127,8 @@ const Delivery = () => {
               name='address'
               id='address'
               placeholder='City'
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               className='text-white bg-green text-start rounded-md h-full w-full  drop-shadow-md focus:outline-none focus:border-none focus:ring-2 focus:ring-orange focus:ring-offset-2 p-3'
             />
           </div>
@@ -113,8 +143,19 @@ const Delivery = () => {
               name='remark'
               id='remark'
               placeholder='eq: The yellow house down the road'
+              value={remark}
+              onChange={(e) => setRemark(e.target.value)}
               className='text-white bg-green px-2 rounded-md h-full w-full  drop-shadow-md focus:outline-none focus:border-none focus:ring-2 focus:ring-orange focus:ring-offset-2 '
             />
+          </div>
+          <div className='col-start-7 col-end-6'>
+            <button
+              type='submit'
+              onClick={(e) => handleCheckout(e)}
+              className='p-3 bg-orange self-end text-white font-medium tracking-wide rounded-lg text-sm md:text-lg'
+            >
+              All correct
+            </button>
           </div>
         </div>
       </form>
