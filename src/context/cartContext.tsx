@@ -1,17 +1,8 @@
 import React, { createContext, useContext } from "react";
 import { cartTypes } from "@/types";
 import { toast } from "react-toastify";
-
+import { initialValueTypes } from "@/types";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-
-export type initialValueTypes = {
-  cart: cartTypes[];
-  setCart: React.Dispatch<React.SetStateAction<cartTypes[]>>;
-  addToCart: (prop: cartTypes) => void;
-  increaseQuantity: (prop: number) => void;
-  reduceQuantity: (prop: number) => void;
-  removeFromCart: (prop: number) => void;
-};
 
 const initialValues = {
   cart: [],
