@@ -33,7 +33,7 @@ const Card = ({
   }) => {
     toast(`${name} was 🛒 Added to the cart`, {
       position: "top-center",
-      autoClose: 10000,
+      autoClose: 2000,
       hideProgressBar: false,
       pauseOnHover: true,
       draggable: true,

@@ -14,14 +14,7 @@ import { signOut } from "next-auth/react";
 const Header = () => {
   const { data: session, status } = useSession();
 
-  console.log(session);
-  console.log(status);
-
   const { push, asPath } = useRouter();
-
-  const myLoader = ({ src, width }: any) => {
-    return `https://example.com/${src}?w=${width}}`;
-  };
 
   const handleSignOut = async () => {
     const res = await signOut({ redirect: true, callbackUrl: "/" });

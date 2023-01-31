@@ -1,10 +1,15 @@
+// Next
 import Router from "next/router";
 import { Fragment, useRef } from "react";
+// utils
 import { Dialog, Transition } from "@headlessui/react";
 import { HiChevronDown, HiPlus, HiMinus, HiTrash } from "react-icons/hi";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import { Disclosure } from "@headlessui/react";
+// hooks
 import { useCart } from "@/context/cartContext";
+import { useCalculateTotal } from "@/hooks/useCalculateTotal";
+import { TAX, DELIVERY_FEE } from "libs/utils";
 
 export default function CartModal({
   open,
@@ -16,6 +21,8 @@ export default function CartModal({
   const cancelButtonRef = useRef(null);
 
   const { cart, increaseQuantity, reduceQuantity, removeFromCart } = useCart();
+
+  const { totalQty, Subtotal, grandTotal } = useCalculateTotal();
 
   const { push } = Router;
 
@@ -54,9 +61,12 @@ export default function CartModal({
                 <div className='py-3 '>
                   <div className='pb-5'>
                     <MdOutlineShoppingBasket className='mx-auto w-[60px] h-auto text-green' />
-                    <p className='text-center w-full text-sm font-light tracking-wider'>
+                    <p className='text-center w-full text-md font-light tracking-wider'>
                       {cart.length} items in the basket
                     </p>
+                    <span className='text-center text-sm'>
+                      Purchase above 20,000 mmk to claim free delivery!
+                    </span>
                   </div>
                   <ul className='flex flex-col items-center gap-5'>
                     {cart.length < 1 ? (
@@ -147,21 +157,29 @@ export default function CartModal({
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
                     <h3 className='font-light tracking-wide'>Subtotal</h3>
-                    <span>12000</span>
+                    <span>{Subtotal}</span>
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
-                    <h3 className='font-light tracking-wide'>Discount</h3>
+                    <h3 className='font-light tracking-wide'>
+                      Discount (cupon)
+                    </h3>
+                    <span>-</span>
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
                     <h3 className='font-light tracking-wide'>Tax</h3>
+                    <span>{TAX}</span>
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
                     <h3 className='font-light tracking-wide'>Delivery fee</h3>
+                    <span>
+                      {Subtotal >= 20000 ? "Free Delivery!" : DELIVERY_FEE}
+                    </span>
                   </div>
                   <div className='flex flex-row items-center justify-between border-b my-2'>
                     <h3 className='text-xl font-extrabold tracking-wider'>
                       Grand Total
                     </h3>
+                    <span>{grandTotal}</span>
                   </div>
                 </div>
                 <div className='bg-indigo-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>

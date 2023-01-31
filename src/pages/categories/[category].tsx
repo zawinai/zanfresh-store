@@ -14,14 +14,12 @@ import { HashLoader } from "react-spinners";
 const Collection = () => {
   const hydrate = useComponentHydrated();
 
-  console.log(hydrate);
-
   const items = [
     {
       id: 1,
       name: "Water spinach",
       img: "/items/item1.png",
-      price: 120,
+      price: 20000,
       qty: 12,
       promo: false,
     },
@@ -135,7 +133,7 @@ const Collection = () => {
           <CartModal open={open} setOpen={setOpen} />
           <ToastContainer
             position='top-center'
-            autoClose={2000}
+            autoClose={1000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

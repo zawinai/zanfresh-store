@@ -1,33 +1,9 @@
 import { Listbox } from "@headlessui/react";
 import { BsChevronDown } from "react-icons/Bs";
 import { useState } from "react";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useCheckout } from "@/context/checkoutContext";
-
+import { cities } from "libs/utils";
 const Delivery = () => {
-  const cities = [
-    {
-      id: 1,
-      name: "Yangon",
-    },
-    {
-      id: 2,
-      name: "Mandalay",
-    },
-    {
-      id: 3,
-      name: "Thailand",
-    },
-    {
-      id: 4,
-      name: "USA",
-    },
-    {
-      id: 5,
-      name: "Canada",
-    },
-  ];
-
   const [city, setCity] = useState<typeof cities[0]>(cities[0]);
 
   const [phone, setPhone] = useState<number | undefined>(undefined);
@@ -36,9 +12,7 @@ const Delivery = () => {
 
   const [remark, setRemark] = useState<string>("");
 
-  const [checkout, setCheckout] = useLocalStorage("checkout", {});
-
-  const { complete, setComplete, setCheckoutInfo } = useCheckout();
+  const { setComplete, setCheckoutInfo } = useCheckout();
 
   const handleCheckout = (e: React.FormEvent) => {
     e.preventDefault();

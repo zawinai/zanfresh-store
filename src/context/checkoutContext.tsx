@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { ShopContextProviderProps, initialValuesTypes } from "@/types";
+import { ShopContextProviderProps, initialCheckoutTypes } from "@/types";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const initialValues = {
@@ -9,9 +9,8 @@ const initialValues = {
   setCheckoutInfo: () => {},
 };
 
-export const CheckoutContext = createContext<initialValuesTypes | any>(
-  initialValues
-);
+export const CheckoutContext =
+  createContext<initialCheckoutTypes>(initialValues);
 
 export const CheckoutProvider = ({
   children,

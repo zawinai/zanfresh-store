@@ -1,13 +1,23 @@
-"use client";
+// Hooks
 import { useCart } from "@/context/cartContext";
-import { HiTruck, HiCreditCard, HiCash, HiBadgeCheck } from "react-icons/hi";
 import UseCheckoutForm from "@/hooks/useCheckoutForm";
-import { useComponentHydrated } from "react-hydration-provider";
-import { HashLoader } from "react-spinners";
+
+//Components
 import Delivery from "@/components/checkoutforms/delivery";
 import Payment from "@/components/checkoutforms/payment";
 import Complete from "@/components/checkoutforms/complete";
+import {
+  DeliveryIcon,
+  PaymentIcon,
+  CompleteIcon,
+} from "@/components/checkoutforms/checkoutIcons";
 import Image from "next/image";
+
+// utils
+import { useComponentHydrated } from "react-hydration-provider";
+import { HashLoader } from "react-spinners";
+
+// firebase
 import { db } from "firebase.config";
 import {
   doc,
@@ -18,27 +28,17 @@ import {
 } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useCheckout } from "@/context/checkoutContext";
+import { useCalculateTotal } from "@/hooks/useCalculateTotal";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const Checkout = () => {
   const { data: session } = useSession();
 
   const hydrate = useComponentHydrated();
 
-  const { cart } = useCart();
+  const { cart, setCart } = useCart();
 
   const { complete, checkoutInfo } = useCheckout();
-
-  const DeliveryIcon = () => {
-    return <HiTruck className='w-[40px] h-auto mx-auto' />;
-  };
-
-  const PaymentIcon = () => {
-    return <HiCreditCard className='w-[40px] h-auto mx-auto' />;
-  };
-
-  const CompleteIcon = () => {
-    return <HiBadgeCheck className='w-[40px] h-auto mx-auto' />;
-  };
 
   const HEADERS = [
     { name: "Deleivery", ele: <DeliveryIcon /> },
@@ -50,16 +50,38 @@ const Checkout = () => {
 
   const { currentIndex, step, next, back, goto } = UseCheckoutForm(ELEMENTS);
 
-  const handleCheck = async () => {
+  const { grandTotal, freeDelivery } = useCalculateTotal();
+
+  const handleCheckout = async () => {
     try {
-      await setDoc(
-        doc(db, "order", (session?.user?.name as string) || "user"),
+      await addDoc(
+        collection(
+          db,
+          "order",
+          (session?.user?.name as string) || "user",
+          `${
+            new Date().getFullYear() +
+            "-" +
+            (new Date().getMonth() + 1) +
+            "-" +
+            new Date().getDate()
+          }`
+        ),
         {
           ...checkoutInfo,
           cart: cart,
+          grandTotal: grandTotal,
+          freeDelivery: freeDelivery,
           orderAt: serverTimestamp(),
         }
       );
+      setCart([]);
+
+      typeof window !== "undefined" && window.localStorage.removeItem("myCart");
+      typeof window !== "undefined" &&
+        window.localStorage.removeItem("checkout");
+
+      next();
     } catch (err: any) {
       console.log(err);
     }
@@ -154,7 +176,7 @@ const Checkout = () => {
                     currentIndex === ELEMENTS.length - 1 ? "hidden" : ""
                   } p-3 bg-orange self-end text-white font-medium tracking-wide rounded-lg text-sm md:text-lg mt-10`}
                   onClick={() => {
-                    currentIndex == 0 ? next() : handleCheck();
+                    currentIndex == 0 ? next() : handleCheckout();
                   }}
                 >
                   Complete

@@ -3,6 +3,7 @@ import { cartTypes } from "@/types";
 import { toast } from "react-toastify";
 import { initialValueTypes } from "@/types";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useCalculateTotal } from "@/hooks/useCalculateTotal";
 
 const initialValues = {
   cart: [],
@@ -58,7 +59,7 @@ export const CartContextProvider = ({
 
     if (findItem && findItem.quantity == 1) {
       setCart([...remove]);
-      toast(`${findItem.name} is removed!`, {
+      toast(`${findItem.name} was removed!`, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,

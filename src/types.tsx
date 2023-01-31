@@ -11,6 +11,24 @@ export type cartTypes = {
   quantity: number;
 };
 
+export type checkoutTypes =
+  | {
+      city: string;
+      phone: number;
+      address: string;
+      remark: string;
+      cart: cartTypes[];
+      orderAt: () => void;
+    }
+  | {};
+
+export type initialCheckoutTypes = {
+  complete: boolean;
+  setComplete: React.Dispatch<React.SetStateAction<boolean>>;
+  checkoutInfo: checkoutTypes;
+  setCheckoutInfo: React.Dispatch<React.SetStateAction<checkoutTypes>>;
+};
+
 export type initialValueTypes = {
   cart: cartTypes[];
   setCart: React.Dispatch<React.SetStateAction<cartTypes[]>>;

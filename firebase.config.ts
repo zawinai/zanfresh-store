@@ -13,12 +13,12 @@ a typical developer frustration moment..
 
 // This has an error
 const firebaseConfig = {
-  apiKey: process.env.API,
-  authDomain: process.env.ADM,
-  projectId: process.env.PID,
-  storageBucket: process.env.BUC,
-  messagingSenderId: process.env.MSGID,
-  appId: process.env.APP,
+  apiKey: "AIzaSyDiVv1eJDoAaAU7VMG-wthoL-RWTDZPZLA",
+  authDomain: "zan-store.firebaseapp.com",
+  projectId: "zan-store",
+  storageBucket: "zan-store.appspot.com",
+  messagingSenderId: "96071270831",
+  appId: "1:96071270831:web:3bb9c0185633cecf506f5a",
 };
 
 const app = initializeApp(firebaseConfig);
