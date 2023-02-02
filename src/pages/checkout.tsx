@@ -54,27 +54,17 @@ const Checkout = () => {
 
   const handleCheckout = async () => {
     try {
-      await addDoc(
-        collection(
-          db,
-          "order",
-          (session?.user?.name as string) || "user",
-          `${
-            new Date().getFullYear() +
-            "-" +
-            (new Date().getMonth() + 1) +
-            "-" +
-            new Date().getDate()
-          }`
-        ),
-        {
-          ...checkoutInfo,
-          cart: cart,
-          grandTotal: grandTotal,
-          freeDelivery: freeDelivery,
-          orderAt: serverTimestamp(),
-        }
-      );
+      await addDoc(collection(db, "orders"), {
+        ...checkoutInfo,
+        cart: cart,
+        customer: session?.user?.name || "customer",
+        grandTotal: grandTotal,
+        date: `${new Date().getFullYear()}-${
+          new Date().getMonth() + 1
+        }-${new Date().getDate()}`,
+        freeDelivery: freeDelivery,
+        orderAt: serverTimestamp(),
+      });
       setCart([]);
 
       typeof window !== "undefined" && window.localStorage.removeItem("myCart");
