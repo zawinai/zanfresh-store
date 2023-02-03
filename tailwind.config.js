@@ -32,12 +32,17 @@ module.exports = {
         xl: ["clamp(1.13rem, calc(1.08rem + 0.22vw), 2.34rem)"],
       },
       animation: {
+        border: "border 4s ease infinite",
         color: "color 2s ease infinite",
         fadeIn: "fadeIn 1s ease-in forwards",
         bounce: "bounce 2s ease infinite",
         float: "float 12s linear infinite",
       },
       keyframes: {
+        border: {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
         float: {
           "0% 100%": {
             "border-radius": "77% 47% 61% 49%",

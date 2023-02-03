@@ -7,3 +7,12 @@
 <div align="center">
     <img src="screenshots/cart.png" alt="screenshot"/>
 </div>
+<div align="center">
+    <img src="screenshots/profile.png" alt="screenshot"/>
+</div>
+<div align="center">
+    <img src="screenshots/testimonial.png" alt="screenshot"/>
+</div>
+<div align="center">
+    <img src="screenshots/checkout.png" alt="screenshot"/>
+</div>
