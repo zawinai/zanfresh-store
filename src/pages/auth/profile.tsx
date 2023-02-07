@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import Image from "next/image";
-import { FaEllipsisV, FaPen, FaHeart, FaStar } from "react-icons/Fa";
+import { FaEdit, FaPen, FaHeart, FaStar } from "react-icons/Fa";
 
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -10,29 +10,29 @@ const Profile = () => {
   return (
     <>
       <div className=' min-h-screen grid grid-cols-8 mx-auto max-w-[1600px] md:py-10 px-5 md:px-0'>
-        <div className='col-span-full md:col-start-1 md:col-end-6 order-last md:order-first px-4 py-10 bg-gradient-to-r from-blue-200 via-sky-300 to-blue-300 rounded-md'>
+        <div className='col-span-full md:col-start-1 md:col-end-6 order-last md:order-first px-4 py-10 bg-green rounded-md md:ml-5'>
           <h1 className='text-center my-5 text-2xl md:text-4xl font-semibold text-white drop-shadow-md'>
             Order History
           </h1>
-          <table className='w-full bg-orange rounded-md drop-shadow-md'>
+          <table className='w-full bg-orange rounded-md drop-shadow-md mx-auto'>
             <thead className='text-bold text-slate-600 tracking-wider'>
               <tr className='grid grid-cols-8 bg-slate-100 rounded-t-md'>
-                <th className='col-span-2 text-md md:text-lg '>Date</th>
-                <th className='col-span-2 text-md md:text-lg '>Items(qty)</th>
-                <th className='col-span-2 text-md md:text-lg '>Total(mmk)</th>
-                <th className='col-span-2 text-md md:text-lg '>Status</th>
+                <th className='col-span-2 text-sm md:text-lg '>Date</th>
+                <th className='col-span-2 text-sm md:text-lg '>Items</th>
+                <th className='col-span-2 text-sm md:text-lg '>Totals</th>
+                <th className='col-span-2 text-sm md:text-lg '>Status</th>
               </tr>
             </thead>
             <tbody>
               <tr className='grid grid-cols-8 text-white'>
-                <td className='col-span-2 mx-auto text-md md:text-lg'>
+                <td className='col-span-2 mx-auto text-sm md:text-lg'>
                   12,2,21
                 </td>
-                <td className='col-span-2 mx-auto text-md md:text-lg'>21</td>
-                <td className='col-span-2 mx-auto text-md md:text-lg'>
+                <td className='col-span-2 mx-auto text-sm md:text-lg'>21</td>
+                <td className='col-span-2 mx-auto text-sm md:text-lg'>
                   1500.00
                 </td>
-                <td className='col-span-2 mx-auto text-md md:text-lg'>
+                <td className='col-span-2 mx-auto text-sm md:text-lg'>
                   Delivered
                 </td>
               </tr>
@@ -66,18 +66,66 @@ const Profile = () => {
               </button>
             </div>
             <div className='flex flex-col items-center gap-10 w-full'>
-              <div className='relative flex flex-col items-start bg-slate-200 p-5 rounded-md drop-shadow-md min-w-[250px] w-[90%]'>
-                <FaEllipsisV className='absolute right-1' />
-                <span className='py-3 text-lg font-bold text-slate-700'>
-                  Yangon
-                </span>
-                <span className='py-1 min-h-[70px] text-sm text-slate-600'>
-                  Southern Yangon, May Myit Tar 10th street
-                </span>
-                <span className='py-4 text-md text-slate-600 font-medium'>
-                  0979444796979
-                </span>
-              </div>
+              <form className='relative flex flex-col items-start bg-green p-5 rounded-md drop-shadow-md min-w-[250px] w-[90%] min-h-[300px]'>
+                <button type='button'>
+                  <FaEdit className='absolute right-2 top-3 text-white' />
+                </button>
+                <div className='flex flex-col items-center w-full gap-6 mt-10'>
+                  <h1 className='text-xl font-bold tracking-wider text-white drop-shadow-md'>
+                    Delivery Address
+                  </h1>
+                  <div className='flex flex-col md:flex-row intems-center justify-start w-full gap-5 md:gap-10'>
+                    <label
+                      htmlFor='city'
+                      className='drop-shadow-sm w-[40px] md:text-start col-span-6 text-center text-white font-medium tracking-wider small:col-span-full'
+                    >
+                      City
+                    </label>
+                    <input
+                      id='city'
+                      name='city'
+                      type='text'
+                      readOnly={true}
+                      placeholder='Yangon'
+                      className='w-full max-w-[140px] rounded-md px-3 drop-shadow-md'
+                    />
+                  </div>
+                  <div className='flex flex-col md:flex-row intems-center justify-start w-full gap-5 md:gap-10'>
+                    <label
+                      htmlFor='phone'
+                      className='drop-shadow-sm w-[40px] md:text-start text-center text-white font-medium tracking-wider small:col-span-full'
+                    >
+                      Phone
+                    </label>
+                    <input
+                      id='phone'
+                      name='phone'
+                      type='number'
+                      readOnly={true}
+                      placeholder='09******'
+                      className='w-full rounded-md px-3 drop-shadow-md'
+                    />
+                  </div>
+                  <div className='flex flex-col md:flex-row intems-center justify-start w-full gap-5 md:gap-10'>
+                    <label
+                      htmlFor='address'
+                      className='drop-shadow-sm w-[40px] md:text-start text-center text-white font-medium tracking-wider small:col-span-full'
+                    >
+                      Address
+                    </label>
+                    <input
+                      id='address'
+                      name='address'
+                      type='number'
+                      readOnly={true}
+                      className='w-full h-[60px] rounded-md px-3 drop-shadow-md'
+                    />
+                  </div>
+                </div>
+                <div className='self-end mt-6 bg-orange px-3 py-2 rounded-md text-white'>
+                  <button>Submit</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -116,7 +164,7 @@ const Profile = () => {
                           aria-hidden='true'
                         />
                       </div>
-                      <div className='mt-3 sm:mt-0 sm:ml-4 sm:text-left w-full space-y-10 '>
+                      <div className='mt-3 sm:mt-0 sm:text-left w-full space-y-10 '>
                         <Dialog.Title
                           as='h3'
                           className='text-lg font-bold leading-6 text-gray-900 text-center tracking-widest'

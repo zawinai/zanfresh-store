@@ -8,7 +8,7 @@ import {
 } from "react-icons/md";
 import { useSession } from "next-auth/react";
 import { SyncLoader } from "react-spinners";
-import { Animate, AnimateGroup } from "react-simple-animate";
+import { Animate } from "react-simple-animate";
 import { signOut } from "next-auth/react";
 
 const Header = () => {

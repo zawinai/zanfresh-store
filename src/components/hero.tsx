@@ -98,7 +98,7 @@ const Hero = () => {
           </div>
           <div className='flex flex-row items-center justify-around w-full mb-20 mx-auto z-50'>
             <Link
-              href='/auth/signin?callbackUrl=/'
+              href='shopping/products'
               className='text-sm sm:text-lg md:text-xl w-[130px] md:w-[120px] text-center bg-gradient-to-r from-orange to-green bg-clip-text text-transparent p-3 rounded-l-3xl rounded-r-3xl outline-none focus:border-none focus:ring-4 focus:ring-orange ring-offset-2 font-bold'
             >
               Shopping

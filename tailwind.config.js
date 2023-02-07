@@ -7,6 +7,9 @@ module.exports = {
         "menu-card": "repeat(auto-fit, minmax(180px, 1fr))",
         "item-card": "repeat(auto-fit, minmax(170px, 1fr))",
       },
+      gridTemplateRows: {
+        "shopping-page": ["auto auto auto"],
+      },
       backgroundImage: {
         signIn: "url('/signIn.jpg')",
         veges: "url('/veges.jpg')",
@@ -23,6 +26,7 @@ module.exports = {
       },
       screens: {
         xs: { raw: "(min-width : 250px)" },
+        small: { raw: "(max-width : 1050px)" },
       },
       fontSize: {
         xs: ["clamp(0.58rem, calc(0.75rem + 0.01vw), 0.40rem)"],

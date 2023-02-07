@@ -1,19 +1,16 @@
-interface IProps {
-  title: string;
-  stars: number;
-  body: string;
-  user: string;
-}
+import { IProps } from "@/types";
+import { MdFormatQuote } from "react-icons/md";
+
 const TestimonialCard = ({ title, stars, body, user }: IProps) => {
   return (
-    <div className='shadow-sm w-[320px] h-auto bg-sky-200/90 backdrop-blur-lg rounded-xl'>
+    <div className='shadow-sm w-[320px] h-auto bg-gradient-to-r from-sky-500 to-blue-500 backdrop-blur-lg rounded-xl'>
       <blockquote className=' p-5 '>
-        <div>
-          <div className='flex gap-0.5 text-green-500'>
+        <div className='mx-auto px-2 py-1 w-full'>
+          <div className='inline-flex gap-1 text-green-500 items-center justify-center w-full'>
             {[...Array(stars).keys()].map((_, index) => (
               <svg
                 key={index}
-                className='h-5 w-5'
+                className='h-7 w-7  text-yellow-400'
                 fill='currentColor'
                 viewBox='0 0 20 20'
                 xmlns='http://www.w3.org/2000/svg'
@@ -24,17 +21,15 @@ const TestimonialCard = ({ title, stars, body, user }: IProps) => {
           </div>
 
           <div className='mt-4'>
-            <p className='text-2xl font-bold text-sky-500 sm:text-3xl'>
-              {title}
-            </p>
-
-            <p className='mt-4 leading-relaxed text-gray-500 font-bold'>
+            <p className='mt-4 leading-relaxed text-slate-200 font-bold'>
               {body}
             </p>
           </div>
         </div>
 
-        <footer className='mt-8 text-sm text-gray-500'>&mdash; {user}</footer>
+        <footer className='mt-8 text-md text-white font-bold text-end'>
+          &mdash; {user}
+        </footer>
       </blockquote>
     </div>
   );

@@ -2,6 +2,9 @@
     <img src="screenshots/homepage.png" alt="screenshot"/>
 </div>
 <div align="center">
+    <img src="screenshots/shopping.png" alt="screenshot"/>
+</div>
+<div align="center">
     <img src="screenshots/categories.png" alt="screenshot"/>
 </div>
 <div align="center">

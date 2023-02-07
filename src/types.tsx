@@ -37,3 +37,10 @@ export type initialValueTypes = {
   reduceQuantity: (prop: number) => void;
   removeFromCart: (prop: number) => void;
 };
+
+export interface IProps {
+  title: string;
+  stars: number;
+  body: string;
+  user: string;
+}
